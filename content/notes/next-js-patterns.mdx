@@ -1,0 +1,53 @@
+---
+title: "Next.js App Router Patterns"
+stage: "budding"
+updatedAt: "2024-03-10"
+---
+
+# Next.js App Router Patterns
+
+Server components, streaming, and the new way of building React apps.
+
+## Server Components by Default
+
+In the App Router, all components are Server Components by default. This means:
+
+- They run only on the server
+- They can directly access databases and filesystems
+- They don't add to the client bundle size
+- They can't use hooks or browser APIs
+
+## When to Use Client Components
+
+Add `"use client"` at the top of a file when you need:
+
+- **Interactivity:** onClick, onChange, etc.
+- **State:** useState, useReducer
+- **Effects:** useEffect, useLayoutEffect
+- **Browser APIs:** window, document, localStorage
+
+## Data Fetching
+
+With Server Components, you can fetch data directly in your components:
+
+```tsx
+async function BlogPost({ slug }: { slug: string }) {
+  const post = await getPost(slug)
+  return <article>{post.content}</article>
+}
+```
+
+No more `getServerSideProps` or `getStaticProps`!
+
+## Loading States
+
+Use `loading.tsx` files for automatic loading UI:
+
+```
+app/
+  posts/
+    page.tsx
+    loading.tsx  // Shows while page.tsx is loading
+```
+
+This leverages React Suspense under the hood.

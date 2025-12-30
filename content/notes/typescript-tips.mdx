@@ -1,0 +1,47 @@
+---
+title: "TypeScript Tips & Tricks"
+stage: "budding"
+updatedAt: "2024-03-12"
+---
+
+# TypeScript Tips & Tricks
+
+A collection of useful TypeScript patterns I keep coming back to.
+
+## Type Inference
+
+Let TypeScript do the work for you. Instead of explicitly typing everything, leverage inference:
+
+```typescript
+// Instead of this
+const numbers: number[] = [1, 2, 3]
+
+// Just do this
+const numbers = [1, 2, 3]
+```
+
+## Utility Types
+
+TypeScript's built-in utility types are incredibly powerful:
+
+- `Partial<T>` - Makes all properties optional
+- `Required<T>` - Makes all properties required
+- `Pick<T, K>` - Picks specific properties
+- `Omit<T, K>` - Omits specific properties
+- `Record<K, V>` - Creates an object type with keys K and values V
+
+## Discriminated Unions
+
+One of the most powerful patterns for type-safe code:
+
+```typescript
+type Result<T> = 
+  | { success: true; data: T }
+  | { success: false; error: string }
+```
+
+This pattern makes it impossible to access `data` without first checking for success.
+
+## More to come...
+
+This note is still growing. Check back for more tips!
