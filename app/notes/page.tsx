@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Card } from "@/components/ui/card"
+import { MotionCard } from "@/components/ui/animated-card"
 import { ArrowRight, BookOpen } from "lucide-react"
 import Navigation from "@/app/navigation"
 import { getAllNotes, getStageEmoji, getStageLabel } from "@/lib/notes"
@@ -44,7 +44,7 @@ export default function NotesPage() {
       <section className="max-w-6xl mx-auto px-6 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {notes.map((note, index) => (
-            <Card key={note.slug} className={getCardClassName(index, notes.length)}>
+            <MotionCard key={note.slug} index={index} className={getCardClassName(index, notes.length)}>
               <Link href={`/notes/${note.slug}`} className="block p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -59,7 +59,7 @@ export default function NotesPage() {
                   <span>{getStageLabel(note.stage)}</span>
                 </div>
               </Link>
-            </Card>
+            </MotionCard>
           ))}
         </div>
 

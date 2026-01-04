@@ -1,7 +1,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { MotionCard, MotionDiv } from "@/components/ui/animated-card"
 import { ArrowRight, BookOpen, Code, Lightbulb, Sprout } from "lucide-react"
 import Navigation from "./navigation"
 
@@ -15,13 +15,13 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto px-6 py-16 md:py-24">
-        <div className="max-w-3xl">
+        <MotionDiv className="max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">Hey there, I'm Hamza 👋</h1>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
             Welcome to my{" "}
             <Link
               href="/about"
-              className="text-accent underline decoration-2 underline-offset-4 hover:text-accent-foreground transition-colors"
+              className="text-green-500 text-accent underline decoration-2 underline-offset-4 hover:text-accent-foreground transition-colors"
             >
               digital garden
             </Link>{" "}
@@ -43,14 +43,14 @@ export default function Home() {
               <Link href="/about">Learn More</Link>
             </Button>
           </div>
-        </div>
+        </MotionDiv>
       </section>
 
       {/* Content Grid */}
       <section className="max-w-6xl mx-auto px-6 pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max">
           {/* Featured Project */}
-          <Card className="group relative overflow-hidden hover:shadow-lg transition-shadow md:col-span-2">
+          <MotionCard index={0} className="group relative overflow-hidden hover:shadow-lg transition-shadow md:col-span-2">
             <Link href="/projects/personal-website" className="block p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -65,10 +65,10 @@ export default function Home() {
                 TypeScript, and Tailwind CSS.
               </p>
             </Link>
-          </Card>
+          </MotionCard>
 
           {/* Note Card */}
-          <Card className="group hover:shadow-lg transition-shadow">
+          <MotionCard index={1} className="group hover:shadow-lg transition-shadow">
             <Link href="/notes/learning-in-public" className="block p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -83,10 +83,10 @@ export default function Home() {
               </p>
               <div className="mt-4 text-xs text-muted-foreground">Seedling 🌱 · Updated 2 days ago</div>
             </Link>
-          </Card>
+          </MotionCard>
 
           {/* Writing Card */}
-          <Card className="group hover:shadow-lg transition-shadow">
+          <MotionCard index={2} className="group hover:shadow-lg transition-shadow">
             <Link href="/writing/on-digital-gardens" className="block p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -101,10 +101,10 @@ export default function Home() {
               </p>
               <div className="mt-4 text-xs text-muted-foreground">March 15, 2024</div>
             </Link>
-          </Card>
+          </MotionCard>
 
           {/* Image Card */}
-          <Card className="group overflow-hidden hover:shadow-lg transition-shadow md:row-span-2">
+          <MotionCard index={3} className="group overflow-hidden hover:shadow-lg transition-shadow md:row-span-2">
             <Link href="/notes/typescript-tips" className="block">
               <div className="relative aspect-[4/5] bg-gradient-to-br from-accent/20 to-accent/5">
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -122,10 +122,10 @@ export default function Home() {
                 </p>
               </div>
             </Link>
-          </Card>
+          </MotionCard>
 
           {/* Quote/Highlight Card */}
-          <Card className="group bg-accent/5 border-accent/20 hover:shadow-lg transition-shadow md:col-span-2">
+          <MotionCard index={4} className="group bg-accent/5 border-accent/20 hover:shadow-lg transition-shadow md:col-span-2">
             <Link href="/notes/creativity" className="block p-6">
               <div className="flex items-center gap-2 text-sm text-accent mb-4">
                 <Sprout className="h-4 w-4" />
@@ -139,10 +139,10 @@ export default function Home() {
                 Exploring the philosophy behind digital gardens and why they matter
               </p>
             </Link>
-          </Card>
+          </MotionCard>
 
           {/* Simple Link Card */}
-          <Card className="group hover:shadow-lg transition-shadow">
+          <MotionCard index={5} className="group hover:shadow-lg transition-shadow">
             <Link href="/notes/next-js-patterns" className="block p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -157,10 +157,10 @@ export default function Home() {
               </p>
               <div className="mt-4 text-xs text-muted-foreground">Budding 🌿 · Updated 5 days ago</div>
             </Link>
-          </Card>
+          </MotionCard>
 
           {/* List Card */}
-          <Card className="group hover:shadow-lg transition-shadow md:col-span-2">
+          <MotionCard index={6} className="group hover:shadow-lg transition-shadow md:col-span-2">
             <Link href="/projects" className="block p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -185,7 +185,7 @@ export default function Home() {
                 </div>
               </div>
             </Link>
-          </Card>
+          </MotionCard>
         </div>
       </section>
 
