@@ -34,11 +34,11 @@ export default function PhotoPage({ params }: { params: { slug: string } }) {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-6xl mx-auto px-6 py-4">
+      <div className="max-w-6xl mx-auto">
         <Navigation />
       </div>
 
-      <article className="max-w-3xl mx-auto px-6 py-16">
+      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <Button variant="ghost" asChild className="mb-8 -ml-4">
           <Link href="/photos">
             <ArrowLeft className="mr-2 h-4 w-4" />
@@ -46,8 +46,8 @@ export default function PhotoPage({ params }: { params: { slug: string } }) {
           </Link>
         </Button>
 
-        <header className="mb-12">
-          <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6 flex-wrap">
+        <header className="mb-8 sm:mb-12">
+          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6 flex-wrap">
             <div className="flex items-center gap-2">
               <span>{getStageEmoji(photo.stage)}</span>
               <span>{getStageLabel(photo.stage)}</span>
@@ -64,9 +64,9 @@ export default function PhotoPage({ params }: { params: { slug: string } }) {
             )}
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">{photo.title}</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-balance">{photo.title}</h1>
 
-          <p className="text-xl text-muted-foreground leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
             {photo.caption}
           </p>
 
@@ -84,11 +84,11 @@ export default function PhotoPage({ params }: { params: { slug: string } }) {
           )}
         </header>
 
-        <div className="mb-12">
+        <div className="mb-8 sm:mb-12">
           <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/10 to-accent/5 rounded-lg flex items-center justify-center overflow-hidden">
-            <Camera className="h-16 w-16 text-accent/30" />
+            <Camera className="h-12 w-12 sm:h-16 sm:w-16 text-accent/30" />
           </div>
-          <p className="text-xs text-muted-foreground mt-3 text-center italic">
+          <p className="text-xs text-muted-foreground mt-2 sm:mt-3 text-center italic">
             Image placeholder — replace with actual photo
           </p>
         </div>
@@ -135,8 +135,8 @@ export default function PhotoPage({ params }: { params: { slug: string } }) {
         )}
       </article>
 
-      <footer className="border-t border-border mt-24">
-        <div className="max-w-6xl mx-auto px-6 py-8">
+      <footer className="border-t border-border mt-16 sm:mt-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">© 2025 Digital Garden. Built with Next.js & Tailwind CSS.</p>
             <div className="flex items-center gap-6">
