@@ -2,7 +2,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { MotionCard, MotionDiv } from "@/components/ui/animated-card"
-import { ArrowRight, BookOpen, Code, Lightbulb, Sprout } from "lucide-react"
+import { ArrowRight, BookOpen, Camera, Code, Lightbulb, Sprout } from "lucide-react"
 import Navigation from "./navigation"
 
 export default function Home() {
@@ -103,23 +103,24 @@ export default function Home() {
             </Link>
           </MotionCard>
 
-          {/* Image Card */}
+          {/* Photo Card */}
           <MotionCard index={3} className="group overflow-hidden hover:shadow-lg transition-shadow md:row-span-2">
-            <Link href="/notes/typescript-tips" className="block">
+            <Link href="/photos/morning-light" className="block">
               <div className="relative aspect-[4/5] bg-gradient-to-br from-accent/20 to-accent/5">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Code className="h-16 w-16 text-accent/40" />
+                  <Camera className="h-16 w-16 text-accent/40" />
                 </div>
               </div>
               <div className="p-6">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                  <BookOpen className="h-4 w-4" />
-                  <span>Notes</span>
+                  <Camera className="h-4 w-4" />
+                  <span>Photos</span>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">TypeScript Tips & Tricks</h3>
+                <h3 className="text-xl font-semibold mb-2">Morning Light</h3>
                 <p className="text-sm text-muted-foreground">
-                  A collection of useful TypeScript patterns I keep coming back to
+                  Golden hour through the kitchen window — a quiet moment before the day begins
                 </p>
+                <div className="mt-4 text-xs text-muted-foreground">Seedling 🌱</div>
               </div>
             </Link>
           </MotionCard>
