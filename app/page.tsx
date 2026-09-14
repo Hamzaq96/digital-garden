@@ -9,15 +9,15 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Navigation */}
-      <div className="max-w-6xl mx-auto px-6 py-4">
+      <div className="max-w-6xl mx-auto">
         <Navigation />
       </div>
 
       {/* Hero Section */}
-      <section className="max-w-6xl mx-auto px-6 py-16 md:py-24">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-24">
         <MotionDiv className="max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">Hey there, I'm Hamza 👋</h1>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 text-balance">Hey there, I'm Hamza 👋</h1>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-6 sm:mb-8">
             Welcome to my{" "}
             <Link
               href="/about"
@@ -28,7 +28,7 @@ export default function Home() {
             🌱 — a living collection of thoughts, ideas, and projects that I'm tending to. This is where half-baked
             ideas grow into something more, where I learn in public, and where I document my journey.
           </p>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-6 sm:mb-8">
             I like building things, exploring new technologies, and sharing what I learn along the way. Feel free to
             wander around, read my notes, check out my projects, and maybe even plant a few ideas of your own.
           </p>
@@ -47,8 +47,8 @@ export default function Home() {
       </section>
 
       {/* Content Grid */}
-      <section className="max-w-6xl mx-auto px-6 pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-max">
           {/* Featured Project */}
           <MotionCard index={0} className="group relative overflow-hidden hover:shadow-lg transition-shadow md:col-span-2">
             <Link href="/projects/personal-website" className="block p-6">
@@ -191,8 +191,8 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border mt-24">
-        <div className="max-w-6xl mx-auto px-6 py-8">
+      <footer className="border-t border-border mt-16 sm:mt-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">© 2025 Digital Garden. Built with Next.js & Tailwind CSS.</p>
             <div className="flex items-center gap-6">

@@ -9,11 +9,11 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen">
       {/* Navigation */}
-      <div className="max-w-6xl mx-auto px-6 py-4">
+      <div className="max-w-6xl mx-auto">
         <Navigation />
       </div>
 
-      <article className="max-w-3xl mx-auto px-6 py-16">
+      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <Button variant="ghost" asChild className="mb-8 -ml-4">
           <Link href="/">
             <ArrowLeft className="mr-2 h-4 w-4" />
@@ -21,10 +21,10 @@ export default function AboutPage() {
           </Link>
         </Button>
 
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">About This Garden</h1>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">About This Garden</h1>
 
         <div className="prose prose-neutral dark:prose-invert max-w-none">
-          <p className="text-xl text-muted-foreground leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
             This is a digital garden — a space where ideas are planted, nurtured, and allowed to grow organically over
             time.
           </p>
@@ -133,8 +133,8 @@ export default function AboutPage() {
       </article>
 
       {/* Footer */}
-      <footer className="border-t border-border mt-24">
-        <div className="max-w-6xl mx-auto px-6 py-8">
+      <footer className="border-t border-border mt-16 sm:mt-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">© 2025 Digital Garden. Built with Next.js & Tailwind CSS.</p>
             <div className="flex items-center gap-6">
