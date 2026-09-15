@@ -20,22 +20,22 @@ export default function PhotosPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-6xl mx-auto px-6 py-4">
+      <div className="max-w-6xl mx-auto">
         <Navigation />
       </div>
 
-      <section className="max-w-6xl mx-auto px-6 py-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Photos</h1>
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">Photos</h1>
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
             Visual observations and moments captured — outings, light studies, and the quiet details worth noticing.
             These aren't polished portfolio pieces; they're notes with cameras, sketches of attention.
           </p>
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 sm:pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {photos.map((photo, index) => (
             <MotionCard key={photo.slug} index={index} className={getCardClassName(index, photos.length)}>
               <Link href={`/photos/${photo.slug}`} className="block">
@@ -77,8 +77,8 @@ export default function PhotosPage() {
         )}
       </section>
 
-      <footer className="border-t border-border mt-24">
-        <div className="max-w-6xl mx-auto px-6 py-8">
+      <footer className="border-t border-border mt-16 sm:mt-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">© 2025 Digital Garden. Built with Next.js & Tailwind CSS.</p>
             <div className="flex items-center gap-6">
