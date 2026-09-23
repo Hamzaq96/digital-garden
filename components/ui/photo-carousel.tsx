@@ -13,6 +13,7 @@ interface Album {
   description: string
   location?: string
   photoCount?: number
+  coverImage?: string
 }
 
 interface AlbumCarouselProps {
@@ -105,8 +106,16 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
                   href={`/photos/${album.slug}`}
                   className="block bg-card rounded-lg shadow-md border border-border overflow-hidden hover:shadow-lg transition-shadow duration-300"
                 >
-                  <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/10 to-accent/5 flex items-center justify-center">
-                    <Camera className="h-14 w-14 sm:h-16 sm:w-16 text-accent/30" />
+                  <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/10 to-accent/5 flex items-center justify-center overflow-hidden">
+                    {album.coverImage ? (
+                      <img
+                        src={album.coverImage}
+                        alt={album.place}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Camera className="h-14 w-14 sm:h-16 sm:w-16 text-accent/30" />
+                    )}
                   </div>
                   <div className="p-4 sm:p-5">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">

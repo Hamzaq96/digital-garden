@@ -5,12 +5,18 @@ import useEmblaCarousel from "embla-carousel-react"
 import { ChevronLeft, ChevronRight, Camera } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+interface AlbumPhoto {
+  path: string
+  caption?: string
+}
+
 interface PictureCarouselProps {
   albumName: string
   pictureCount: number
+  photos?: AlbumPhoto[]
 }
 
-export function PictureCarousel({ albumName, pictureCount }: PictureCarouselProps) {
+export function PictureCarousel({ albumName, pictureCount, photos }: PictureCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "center",
@@ -67,10 +73,19 @@ export function PictureCarousel({ albumName, pictureCount }: PictureCarouselProp
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [scrollPrev, scrollNext])
 
-  const pictures = Array.from({ length: pictureCount }, (_, i) => ({
-    id: i + 1,
-    alt: `${albumName} - Photo ${i + 1}`,
-  }))
+  const pictures = photos
+    ? photos.map((photo, i) => ({
+        id: i + 1,
+        path: photo.path,
+        caption: photo.caption,
+        alt: photo.caption || `${albumName} - Photo ${i + 1}`,
+      }))
+    : Array.from({ length: pictureCount }, (_, i) => ({
+        id: i + 1,
+        path: null,
+        caption: null,
+        alt: `${albumName} - Photo ${i + 1}`,
+      }))
 
   return (
     <div className="relative">
@@ -88,12 +103,29 @@ export function PictureCarousel({ albumName, pictureCount }: PictureCarouselProp
                 )}
               >
                 <div className="bg-card rounded-lg shadow-lg border border-border overflow-hidden">
-                  <div className="relative aspect-[3/2] bg-gradient-to-br from-accent/10 to-accent/5 flex flex-col items-center justify-center">
-                    <Camera className="h-16 w-16 sm:h-20 sm:w-20 text-accent/30 mb-3" />
-                    <p className="text-xs text-muted-foreground italic">
-                      Photo {picture.id} — placeholder
-                    </p>
+                  <div className="relative aspect-[3/2] bg-gradient-to-br from-accent/10 to-accent/5 flex flex-col items-center justify-center overflow-hidden">
+                    {picture.path ? (
+                      <img
+                        src={picture.path}
+                        alt={picture.alt}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <>
+                        <Camera className="h-16 w-16 sm:h-20 sm:w-20 text-accent/30 mb-3" />
+                        <p className="text-xs text-muted-foreground italic">
+                          Photo {picture.id} — placeholder
+                        </p>
+                      </>
+                    )}
                   </div>
+                  {picture.caption && (
+                    <div className="p-4 bg-card">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {picture.caption}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             )
