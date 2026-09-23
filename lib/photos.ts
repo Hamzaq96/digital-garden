@@ -2,28 +2,25 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 
-export type PhotoStage = "seedling" | "budding" | "evergreen"
-
-export type Photo = {
+export type Album = {
   slug: string
-  title: string
+  place: string
   date: string
-  caption: string
-  tags?: string[]
-  stage: PhotoStage
+  description: string
   location?: string
+  photoCount?: number
 }
 
 const photosDirectory = path.join(process.cwd(), "content/photos")
 
-export function getAllPhotos(): Photo[] {
+export function getAllAlbums(): Album[] {
   if (!fs.existsSync(photosDirectory)) {
     return []
   }
 
   const fileNames = fs.readdirSync(photosDirectory)
 
-  const photos = fileNames
+  const albums = fileNames
     .filter((fileName) => fileName.endsWith(".mdx"))
     .map((fileName) => {
       const slug = fileName.replace(/\.mdx$/, "")
@@ -33,22 +30,21 @@ export function getAllPhotos(): Photo[] {
 
       return {
         slug,
-        title: data.title as string,
+        place: data.place as string,
         date: data.date as string,
-        caption: data.caption as string,
-        tags: data.tags as string[] | undefined,
-        stage: data.stage as PhotoStage,
+        description: data.description as string,
         location: data.location as string | undefined,
+        photoCount: data.photoCount as number | undefined,
       }
     })
 
   // Sort by date (most recent first)
-  return photos.sort((a, b) => {
+  return albums.sort((a, b) => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
   })
 }
 
-export function getPhotoBySlug(slug: string): Photo | null {
+export function getAlbumBySlug(slug: string): Album | null {
   const fullPath = path.join(photosDirectory, `${slug}.mdx`)
 
   if (!fs.existsSync(fullPath)) {
@@ -60,33 +56,10 @@ export function getPhotoBySlug(slug: string): Photo | null {
 
   return {
     slug,
-    title: data.title as string,
+    place: data.place as string,
     date: data.date as string,
-    caption: data.caption as string,
-    tags: data.tags as string[] | undefined,
-    stage: data.stage as PhotoStage,
+    description: data.description as string,
     location: data.location as string | undefined,
-  }
-}
-
-export function getStageEmoji(stage: PhotoStage): string {
-  switch (stage) {
-    case "seedling":
-      return "🌱"
-    case "budding":
-      return "🌿"
-    case "evergreen":
-      return "🌳"
-  }
-}
-
-export function getStageLabel(stage: PhotoStage): string {
-  switch (stage) {
-    case "seedling":
-      return "Seedling"
-    case "budding":
-      return "Budding"
-    case "evergreen":
-      return "Evergreen"
+    photoCount: data.photoCount as number | undefined,
   }
 }

@@ -2,24 +2,15 @@
 
 import React, { useCallback, useEffect, useState } from "react"
 import useEmblaCarousel from "embla-carousel-react"
-import { ChevronLeft, ChevronRight, Camera, MapPin } from "lucide-react"
-import Link from "next/link"
+import { ChevronLeft, ChevronRight, Camera } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-interface Album {
-  slug: string
-  place: string
-  date: string
-  description: string
-  location?: string
-  photoCount?: number
+interface PictureCarouselProps {
+  albumName: string
+  pictureCount: number
 }
 
-interface AlbumCarouselProps {
-  albums: Album[]
-}
-
-export function AlbumCarousel({ albums }: AlbumCarouselProps) {
+export function PictureCarousel({ albumName, pictureCount }: PictureCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     align: "center",
@@ -29,7 +20,6 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev()
@@ -55,7 +45,6 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
 
   useEffect(() => {
     if (!emblaApi) return
-    setScrollSnaps(emblaApi.scrollSnapList())
     onSelect()
     emblaApi.on("select", onSelect)
     emblaApi.on("reInit", onSelect)
@@ -78,61 +67,34 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [scrollPrev, scrollNext])
 
-  if (albums.length === 0) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-muted-foreground">No albums yet. Time to start exploring!</p>
-      </div>
-    )
-  }
+  const pictures = Array.from({ length: pictureCount }, (_, i) => ({
+    id: i + 1,
+    alt: `${albumName} - Photo ${i + 1}`,
+  }))
 
   return (
     <div className="relative">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex touch-pan-y items-center">
-          {albums.map((album, index) => {
+          {pictures.map((picture, index) => {
             const isActive = index === selectedIndex
             return (
               <div
-                key={album.slug}
+                key={picture.id}
                 className={cn(
-                  "flex-[0_0_85%] min-w-0 sm:flex-[0_0_65%] md:flex-[0_0_50%] lg:flex-[0_0_42%] xl:flex-[0_0_38%]",
+                  "flex-[0_0_90%] min-w-0 sm:flex-[0_0_75%] md:flex-[0_0_65%] lg:flex-[0_0_55%]",
                   "px-3 sm:px-4 transition-all duration-500 ease-out",
-                  isActive ? "scale-100 opacity-100" : "scale-90 opacity-40 blur-[2px]"
+                  isActive ? "scale-100 opacity-100" : "scale-90 opacity-30 blur-sm"
                 )}
               >
-                <Link
-                  href={`/photos/${album.slug}`}
-                  className="block bg-card rounded-lg shadow-md border border-border overflow-hidden hover:shadow-lg transition-shadow duration-300"
-                >
-                  <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/10 to-accent/5 flex items-center justify-center">
-                    <Camera className="h-14 w-14 sm:h-16 sm:w-16 text-accent/30" />
-                  </div>
-                  <div className="p-4 sm:p-5">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-                      <MapPin className="h-3.5 w-3.5" />
-                      <span>{album.location || "Album"}</span>
-                      {album.photoCount && (
-                        <>
-                          <span>·</span>
-                          <span>{album.photoCount} photos</span>
-                        </>
-                      )}
-                    </div>
-                    <h2 className="text-xl sm:text-2xl font-bold mb-2 hover:text-accent transition-colors">
-                      {album.place}
-                    </h2>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                      {album.description}
+                <div className="bg-card rounded-lg shadow-lg border border-border overflow-hidden">
+                  <div className="relative aspect-[3/2] bg-gradient-to-br from-accent/10 to-accent/5 flex flex-col items-center justify-center">
+                    <Camera className="h-16 w-16 sm:h-20 sm:w-20 text-accent/30 mb-3" />
+                    <p className="text-xs text-muted-foreground italic">
+                      Photo {picture.id} — placeholder
                     </p>
-                    <time dateTime={album.date} className="text-xs text-muted-foreground">
-                      {new Date(album.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                      })}
-                    </time>
                   </div>
-                </Link>
+                </div>
               </div>
             )
           })}
@@ -173,8 +135,8 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
         <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
       </button>
 
-      <div className="flex justify-center gap-2 mt-8">
-        {albums.map((_, index) => (
+      <div className="flex justify-center gap-2 mt-6">
+        {pictures.map((_, index) => (
           <button
             key={index}
             onClick={() => scrollTo(index)}
@@ -184,7 +146,7 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
                 ? "bg-accent w-8"
                 : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
             )}
-            aria-label={`Go to album ${index + 1}`}
+            aria-label={`Go to photo ${index + 1}`}
           />
         ))}
       </div>

@@ -1,9 +1,9 @@
 import Navigation from "@/app/navigation"
-import { getAllPhotos } from "@/lib/photos"
-import { PhotoCarousel } from "@/components/ui/photo-carousel"
+import { getAllAlbums } from "@/lib/photos"
+import { AlbumCarousel } from "@/components/ui/photo-carousel"
 
 export default function PhotosPage() {
-  const photos = getAllPhotos()
+  const albums = getAllAlbums()
 
   return (
     <div className="min-h-screen">
@@ -13,16 +13,15 @@ export default function PhotosPage() {
 
       <section className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">Photos</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">Places</h1>
           <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-            Flip through moments captured — an album of observations, light studies, and quiet details.
-            Swipe, click arrows, or use keyboard to explore.
+            Albums from places I've visited. Click an album to see photos from that place.
           </p>
         </div>
       </section>
 
       <section className="w-full pb-16 sm:pb-24">
-        <PhotoCarousel photos={photos} />
+        <AlbumCarousel albums={albums} />
       </section>
 
       <footer className="border-t border-border mt-16 sm:mt-24">
