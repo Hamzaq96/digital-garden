@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { ArrowLeft, Camera, Calendar, MapPin, Tag } from "lucide-react"
+import { ArrowLeft, Camera, MapPin } from "lucide-react"
 import Navigation from "@/app/navigation"
 import { getAllPhotos, getPhotoBySlug, getStageEmoji, getStageLabel } from "@/lib/photos"
 import { notFound } from "next/navigation"
@@ -38,102 +37,123 @@ export default function PhotoPage({ params }: { params: { slug: string } }) {
         <Navigation />
       </div>
 
-      <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
         <Button variant="ghost" asChild className="mb-8 -ml-4">
           <Link href="/photos">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Photos
+            Back to Album
           </Link>
         </Button>
 
-        <header className="mb-8 sm:mb-12">
-          <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6 flex-wrap">
-            <div className="flex items-center gap-2">
-              <span>{getStageEmoji(photo.stage)}</span>
-              <span>{getStageLabel(photo.stage)}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
-              <span>{new Date(photo.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</span>
-            </div>
-            {photo.location && (
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                <span>{photo.location}</span>
-              </div>
-            )}
+        <article className="bg-card rounded-lg shadow-md border border-border overflow-hidden">
+          <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/10 to-accent/5 flex items-center justify-center">
+            <Camera className="h-16 w-16 sm:h-20 sm:w-20 text-accent/30" />
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-balance">{photo.title}</h1>
+          <div className="p-6 sm:p-8">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3 flex-wrap">
+              <Camera className="h-3.5 w-3.5" />
+              <span>Photos</span>
+              <span>·</span>
+              <span>{getStageEmoji(photo.stage)}</span>
+              <span>{getStageLabel(photo.stage)}</span>
+              <span>·</span>
+              <time dateTime={photo.date}>
+                {new Date(photo.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+              {photo.location && (
+                <>
+                  <span>·</span>
+                  <MapPin className="h-3.5 w-3.5" />
+                  <span>{photo.location}</span>
+                </>
+              )}
+            </div>
 
-          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
-            {photo.caption}
-          </p>
+            <h1 className="text-2xl sm:text-3xl font-bold mb-3">{photo.title}</h1>
 
-          {photo.tags && photo.tags.length > 0 && (
-            <div className="flex items-center gap-2 mt-6">
-              <Tag className="h-4 w-4 text-muted-foreground" />
-              <div className="flex gap-2 flex-wrap">
+            <p className="text-base text-muted-foreground leading-relaxed mb-4">
+              {photo.caption}
+            </p>
+
+            {photo.tags && photo.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-6">
                 {photo.tags.map((tag) => (
-                  <span key={tag} className="text-sm px-3 py-1 bg-secondary rounded-full">
+                  <span
+                    key={tag}
+                    className="text-xs px-2.5 py-0.5 bg-accent/10 text-accent-foreground rounded-full"
+                  >
                     {tag}
                   </span>
                 ))}
               </div>
+            )}
+
+            <div className="prose prose-neutral dark:prose-invert max-w-none prose-sm sm:prose-base">
+              {content.split("\n").map((line, i) => {
+                if (line.startsWith("# ")) {
+                  return null
+                } else if (line.startsWith("## ")) {
+                  return (
+                    <h2 key={i} className="text-xl font-bold mt-6 mb-3">
+                      {line.slice(3)}
+                    </h2>
+                  )
+                } else if (line.trim() === "") {
+                  return <br key={i} />
+                } else if (line.startsWith("- ")) {
+                  return (
+                    <li key={i} className="ml-4 mb-2">
+                      {line.slice(2)}
+                    </li>
+                  )
+                } else {
+                  return (
+                    <p key={i} className="mb-3 leading-relaxed text-muted-foreground">
+                      {line}
+                    </p>
+                  )
+                }
+              })}
             </div>
-          )}
-        </header>
-
-        <div className="mb-8 sm:mb-12">
-          <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/10 to-accent/5 rounded-lg flex items-center justify-center overflow-hidden">
-            <Camera className="h-12 w-12 sm:h-16 sm:w-16 text-accent/30" />
           </div>
-          <p className="text-xs text-muted-foreground mt-2 sm:mt-3 text-center italic">
-            Image placeholder — replace with actual photo
-          </p>
-        </div>
-
-        <div className="prose prose-neutral dark:prose-invert max-w-none">
-          {content.split("\n").map((line, i) => {
-            if (line.startsWith("# ")) {
-              return <h2 key={i} className="text-2xl font-bold mt-8 mb-4">{line.slice(2)}</h2>
-            } else if (line.startsWith("## ")) {
-              return <h3 key={i} className="text-xl font-semibold mt-6 mb-3">{line.slice(3)}</h3>
-            } else if (line.trim() === "") {
-              return <br key={i} />
-            } else if (line.startsWith("- ")) {
-              return <li key={i} className="ml-6">{line.slice(2)}</li>
-            } else {
-              return <p key={i} className="mb-4 leading-relaxed">{line}</p>
-            }
-          })}
-        </div>
+        </article>
 
         {relatedPhotos.length > 0 && (
-          <section className="mt-16 pt-8 border-t border-border">
-            <h3 className="text-xl font-semibold mb-6">More Photos</h3>
-            <div className="grid gap-4">
+          <section className="mt-8">
+            <h3 className="text-lg font-semibold mb-4 px-2">More from Album</h3>
+            <div className="grid sm:grid-cols-2 gap-4">
               {relatedPhotos.map((relatedPhoto) => (
-                <Card key={relatedPhoto.slug} className="group hover:shadow-lg transition-shadow">
-                  <Link href={`/photos/${relatedPhoto.slug}`} className="block p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
-                          <span>{getStageEmoji(relatedPhoto.stage)}</span>
-                          <span>{getStageLabel(relatedPhoto.stage)}</span>
-                        </div>
-                        <h4 className="font-semibold mb-1">{relatedPhoto.title}</h4>
-                        <p className="text-sm text-muted-foreground">{relatedPhoto.caption}</p>
-                      </div>
-                      <ArrowLeft className="h-5 w-5 text-muted-foreground rotate-180 group-hover:translate-x-1 transition-transform" />
+                <Link
+                  key={relatedPhoto.slug}
+                  href={`/photos/${relatedPhoto.slug}`}
+                  className="bg-card rounded-lg shadow-sm border border-border overflow-hidden hover:shadow-md transition-shadow group"
+                >
+                  <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/10 to-accent/5 flex items-center justify-center">
+                    <Camera className="h-10 w-10 text-accent/30" />
+                  </div>
+                  <div className="p-4">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-1.5">
+                      <span>{getStageEmoji(relatedPhoto.stage)}</span>
+                      <span>{getStageLabel(relatedPhoto.stage)}</span>
                     </div>
-                  </Link>
-                </Card>
+                    <h4 className="font-semibold mb-1 group-hover:text-accent transition-colors">
+                      {relatedPhoto.title}
+                    </h4>
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {relatedPhoto.caption}
+                    </p>
+                  </div>
+                </Link>
               ))}
             </div>
           </section>
         )}
-      </article>
+      </div>
 
       <footer className="border-t border-border mt-16 sm:mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
