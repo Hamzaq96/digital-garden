@@ -116,31 +116,31 @@ export function PhotoCarousel({ photos }: PhotoCarouselProps) {
           {photos.map((photo, index) => (
             <div
               key={photo.slug}
-              className="flex-[0_0_100%] min-w-0 sm:flex-[0_0_85%] md:flex-[0_0_70%] lg:flex-[0_0_60%] pl-4 sm:pl-6"
+              className="flex-[0_0_90%] min-w-0 sm:flex-[0_0_70%] md:flex-[0_0_55%] lg:flex-[0_0_45%] xl:flex-[0_0_40%] pl-4 sm:pl-6"
             >
-              <div className="bg-card rounded-lg shadow-lg border border-border overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div className="bg-card rounded-lg shadow-md border border-border overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <Link href={`/photos/${photo.slug}`} className="block">
                   <div className="relative aspect-[4/3] bg-gradient-to-br from-accent/10 to-accent/5 flex items-center justify-center">
-                    <Camera className="h-16 w-16 sm:h-20 sm:w-20 text-accent/30" />
+                    <Camera className="h-12 w-12 sm:h-14 sm:w-14 text-accent/30" />
                   </div>
                 </Link>
-                <div className="p-6 sm:p-8">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                    <Camera className="h-4 w-4" />
+                <div className="p-4 sm:p-5">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                    <Camera className="h-3.5 w-3.5" />
                     <span>Photos</span>
-                    <span className="text-xs">·</span>
+                    <span>·</span>
                     <span>{getStageEmoji(photo.stage)}</span>
                     <span>{getStageLabel(photo.stage)}</span>
                   </div>
                   <Link href={`/photos/${photo.slug}`}>
-                    <h2 className="text-2xl sm:text-3xl font-bold mb-3 hover:text-accent transition-colors">
+                    <h2 className="text-lg sm:text-xl font-bold mb-2 hover:text-accent transition-colors">
                       {photo.title}
                     </h2>
                   </Link>
-                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-4">
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
                     {photo.caption}
                   </p>
-                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
                     <time dateTime={photo.date}>
                       {new Date(photo.date).toLocaleDateString("en-US", {
                         year: "numeric",
@@ -156,11 +156,11 @@ export function PhotoCarousel({ photos }: PhotoCarouselProps) {
                     )}
                   </div>
                   {photo.tags && photo.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-4">
+                    <div className="flex flex-wrap gap-1.5 mt-3">
                       {photo.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-xs px-3 py-1 bg-accent/10 text-accent-foreground rounded-full"
+                          className="text-xs px-2.5 py-0.5 bg-accent/10 text-accent-foreground rounded-full"
                         >
                           {tag}
                         </span>
