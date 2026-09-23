@@ -91,7 +91,11 @@ export default function AlbumPage({ params }: { params: { slug: string } }) {
 
         <section className="mb-12">
           <h2 className="text-2xl font-bold mb-6 text-center">Photos from {album.place}</h2>
-          <PictureCarousel albumName={album.place} pictureCount={album.photoCount || 8} />
+          <PictureCarousel 
+            albumName={album.place} 
+            pictureCount={album.photoCount || 8}
+            photos={album.photos}
+          />
         </section>
       </div>
 
