@@ -2,6 +2,11 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 
+export type AlbumPhoto = {
+  path: string
+  caption?: string
+}
+
 export type Album = {
   slug: string
   place: string
@@ -9,6 +14,8 @@ export type Album = {
   description: string
   location?: string
   photoCount?: number
+  coverImage?: string
+  photos?: AlbumPhoto[]
 }
 
 const photosDirectory = path.join(process.cwd(), "content/photos")
@@ -35,6 +42,8 @@ export function getAllAlbums(): Album[] {
         description: data.description as string,
         location: data.location as string | undefined,
         photoCount: data.photoCount as number | undefined,
+        coverImage: data.coverImage as string | undefined,
+        photos: data.photos as AlbumPhoto[] | undefined,
       }
     })
 
@@ -61,5 +70,7 @@ export function getAlbumBySlug(slug: string): Album | null {
     description: data.description as string,
     location: data.location as string | undefined,
     photoCount: data.photoCount as number | undefined,
+    coverImage: data.coverImage as string | undefined,
+    photos: data.photos as AlbumPhoto[] | undefined,
   }
 }
