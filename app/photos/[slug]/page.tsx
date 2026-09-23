@@ -16,14 +16,19 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function AlbumPage({ params }: { params: { slug: string } }) {
-  const album = getAlbumBySlug(params.slug)
+export default async function AlbumPage({ 
+  params 
+}: { 
+  params: Promise<{ slug: string }> 
+}) {
+  const { slug } = await params
+  const album = getAlbumBySlug(slug)
 
   if (!album) {
     notFound()
   }
 
-  const fullPath = path.join(process.cwd(), "content/photos", `${params.slug}.mdx`)
+  const fullPath = path.join(process.cwd(), "content/photos", `${slug}.mdx`)
   const fileContents = fs.readFileSync(fullPath, "utf8")
   const { content } = matter(fileContents)
 
