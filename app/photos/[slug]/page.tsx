@@ -65,6 +65,25 @@ export default async function AlbumPage({
             {album.description}
           </p>
 
+          {(album.gear || album.recipe) && (
+            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-8 pb-6 border-b border-border">
+              {album.gear && (
+                <div>
+                  <span className="font-medium">Gear</span>
+                  <span className="mx-2">·</span>
+                  <span>{album.gear}</span>
+                </div>
+              )}
+              {album.recipe && (
+                <div>
+                  <span className="font-medium">Recipe</span>
+                  <span className="mx-2">·</span>
+                  <span>{album.recipe}</span>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="prose prose-neutral dark:prose-invert max-w-none">
             {content.split("\n").map((line, i) => {
               if (line.startsWith("# ")) {
