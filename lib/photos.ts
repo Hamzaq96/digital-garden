@@ -16,6 +16,8 @@ export type Album = {
   photoCount?: number
   coverImage?: string
   photos?: AlbumPhoto[]
+  gear?: string
+  recipe?: string
 }
 
 const photosDirectory = path.join(process.cwd(), "content/photos")
@@ -44,6 +46,8 @@ export function getAllAlbums(): Album[] {
         photoCount: data.photoCount as number | undefined,
         coverImage: data.coverImage as string | undefined,
         photos: data.photos as AlbumPhoto[] | undefined,
+        gear: data.gear as string | undefined,
+        recipe: data.recipe as string | undefined,
       }
     })
 
@@ -72,5 +76,7 @@ export function getAlbumBySlug(slug: string): Album | null {
     photoCount: data.photoCount as number | undefined,
     coverImage: data.coverImage as string | undefined,
     photos: data.photos as AlbumPhoto[] | undefined,
+    gear: data.gear as string | undefined,
+    recipe: data.recipe as string | undefined,
   }
 }
